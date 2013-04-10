@@ -24,6 +24,7 @@ public class Nel extends View implements Runnable {
 	private int pontos;
 	
 	private Paint paint;
+	private Paint paintText;
 
 	public Nel(Context context) {
 		super(context);
@@ -32,6 +33,8 @@ public class Nel extends View implements Runnable {
 		paint = new Paint();
 		paint.setColor(Color.BLUE);
 		
+		paintText = new Paint();
+		paintText.setColor(Color.BLACK);
 
 		setFocusableInTouchMode(true);
 		setClickable(true);
@@ -97,7 +100,7 @@ public class Nel extends View implements Runnable {
 
 		super.draw(canvas);
 		canvas.drawCircle(cx, cy, radius, paint);
-		canvas.drawText("pontos : " + pontos  , 10, 100, paint);	
+		canvas.drawText("pontos : " + pontos  , 10, 100, paintText);	
 	}
 
 	public void run() {
@@ -112,6 +115,24 @@ public class Nel extends View implements Runnable {
 		}
 
 	}
+	
+	public boolean condicaoDerrota(float radius, float cx, float cy){
+		
+		if(radius <= 0)
+			return true;
+		if(cx + radius >= getWidth())
+			return true;
+		if(cy + radius >= getHeight())
+			return true;
+		if(cx - radius < 0)
+			return true;
+		if(cy - radius < 0)
+			return true;
+		
+		return false;
+		
+		
+	}
 
 	private void update() {
 		radius += radiusStep;
@@ -124,7 +145,13 @@ public class Nel extends View implements Runnable {
 			
 		}
 		
-		if(radius <= 0)
+		if(condicaoDerrota(this.radius, this.cx, this.cy)){
+			this.radiusStep = 0;
+			this.pontos = 0;
+		}
+			
+		
+		/*if(radius <= 0)
 		{
 			pontos = 0;
 		}
@@ -159,7 +186,7 @@ public class Nel extends View implements Runnable {
 		{
 			radiusStep = 0;
 			pontos = 0;
-		}
+		}*/
 		
 	}
 
