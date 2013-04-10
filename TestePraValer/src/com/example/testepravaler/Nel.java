@@ -20,6 +20,8 @@ public class Nel extends View implements Runnable {
 	private float radiusStep = 1;
 	private float radiusMax = 500;
 	private float radiusMin = 50;
+	private boolean contapontos;
+	private int pontos;
 	
 	private Paint paint;
 
@@ -29,6 +31,7 @@ public class Nel extends View implements Runnable {
 		radius = 50;
 		paint = new Paint();
 		paint.setColor(Color.BLUE);
+		
 
 		setFocusableInTouchMode(true);
 		setClickable(true);
@@ -46,8 +49,9 @@ public class Nel extends View implements Runnable {
 			//cx = event.getRawX();
 			//cy = event.getRawY();
 			
-			 radiusStep = -1;
+			radiusStep = -1;
 		    paint.setColor(Color.GREEN);
+		    contapontos = true;
 			
 			
 			
@@ -75,6 +79,7 @@ public class Nel extends View implements Runnable {
 		//	Log.i(MainActivity.TAG, "nao encoste !!");
 			radiusStep = 1;
 			paint.setColor(Color.RED);
+			contapontos = false;
 		}
 
 		return super.onTouchEvent(event);
@@ -92,6 +97,7 @@ public class Nel extends View implements Runnable {
 
 		super.draw(canvas);
 		canvas.drawCircle(cx, cy, radius, paint);
+		canvas.drawText("pontos : " + pontos  , 10, 100, paint);	
 	}
 
 	public void run() {
@@ -109,30 +115,50 @@ public class Nel extends View implements Runnable {
 
 	private void update() {
 		radius += radiusStep;
+		if(contapontos == true)
+		{
+			
+			pontos += 1;
+		}else{
+			
+			
+		}
+		
+		if(radius <= 0)
+		{
+			pontos = 0;
+		}
+		
 		
 		if(cx <= 0)
 		{
 			radiusStep = 0;
+			pontos = 0;
 		}
 		if(cy <= 0)
 		{
 			radiusStep = 0;
+			pontos = 0;
 		}
 		if(cx >= getWidth() - radius)
 		{
 			radiusStep = 0;
+			pontos = 0;
 		}
 		if(cy >= getHeight() - radius)
 		{
 			radiusStep = 0;
+			pontos = 0;
 		}
 		if(getWidth() + radius<=0)
 		{
 			radiusStep = 0;
+			pontos = 0;
 		}
 		if(getHeight() + radius <=0)
 		{
 			radiusStep = 0;
+			pontos = 0;
 		}
 		
 	}
