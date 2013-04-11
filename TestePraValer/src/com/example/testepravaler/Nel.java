@@ -13,15 +13,14 @@ import android.view.View;
 
 public class Nel extends View implements Runnable {
 	
-	private long time = 1;
+	private int time = 1;
 	private float cx;
 	private float cy;
 	private float radius;
+	private float coefStep = (float) 0.01;
 	private float radiusStep = 1;
-	private float radiusMax = 500;
-	private float radiusMin = 50;
-	private boolean contapontos;
-	private int pontos;
+	private float pontos;
+	static private int Recorde = 0;
 	
 	private Paint paint;
 	private Paint paintText;
@@ -48,41 +47,24 @@ public class Nel extends View implements Runnable {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
-			//Log.i(MainActivity.TAG, "down baby down !! ");
-			//cx = event.getRawX();
-			//cy = event.getRawY();
 			
+			coefStep += 0.01;
 			radiusStep = -1;
 		    paint.setColor(Color.GREEN);
-		    contapontos = true;
-			
-			
 			
 		}
 
 		if (event.getAction() == MotionEvent.ACTION_MOVE) {
 			//Log.i(MainActivity.TAG, "SHAKE !!!");
-			cx = event.getRawX();
-			cy = event.getRawY();
-			
-			//radiusStep ++;
-			
-			//if (radius > radiusMax) {
-				
-		//	} 
-				//if (radius < radiusMin) {
-					
-				
-			//}
-			
-			
+			//cx = event.getRawX();
+			//cy = event.getRawY();
+						
 		}
 
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 		//	Log.i(MainActivity.TAG, "nao encoste !!");
 			radiusStep = 1;
 			paint.setColor(Color.RED);
-			contapontos = false;
 		}
 
 		return super.onTouchEvent(event);
@@ -100,7 +82,8 @@ public class Nel extends View implements Runnable {
 
 		super.draw(canvas);
 		canvas.drawCircle(cx, cy, radius, paint);
-		canvas.drawText("pontos : " + pontos  , 10, 100, paintText);	
+		canvas.drawText("pontos : " + (int) pontos  , 10, 100, paintText);
+		canvas.drawText("Recorde :"+ Recorde , 10, 50, paintText);
 	}
 
 	public void run() {
@@ -130,63 +113,21 @@ public class Nel extends View implements Runnable {
 			return true;
 		
 		return false;
-		
-		
 	}
 
 	private void update() {
-		radius += radiusStep;
-		if(contapontos == true)
-		{
-			
-			pontos += 1;
-		}else{
-			
-			
-		}
+		radius += (radiusStep * coefStep);
+		pontos += (0.3 * coefStep);
 		
 		if(condicaoDerrota(this.radius, this.cx, this.cy)){
-			this.radiusStep = 0;
+			if(Recorde < pontos)
+				this.Recorde = (int) pontos;
+			
+			this.radius = 50;
+			this.coefStep = (float) 0.01;
 			this.pontos = 0;
 		}
-			
 		
-		/*if(radius <= 0)
-		{
-			pontos = 0;
-		}
-		
-		
-		if(cx <= 0)
-		{
-			radiusStep = 0;
-			pontos = 0;
-		}
-		if(cy <= 0)
-		{
-			radiusStep = 0;
-			pontos = 0;
-		}
-		if(cx >= getWidth() - radius)
-		{
-			radiusStep = 0;
-			pontos = 0;
-		}
-		if(cy >= getHeight() - radius)
-		{
-			radiusStep = 0;
-			pontos = 0;
-		}
-		if(getWidth() + radius<=0)
-		{
-			radiusStep = 0;
-			pontos = 0;
-		}
-		if(getHeight() + radius <=0)
-		{
-			radiusStep = 0;
-			pontos = 0;
-		}*/
 		
 	}
 
