@@ -8,6 +8,8 @@ import android.graphics.Picture;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.app.Activity;
+import android.os.Bundle;
 
 
 
@@ -19,8 +21,9 @@ public class Nel extends View implements Runnable {
 	private float radius;
 	private float coefStep = (float) 0.01;
 	private float radiusStep = 1;
-	private float pontos;
+	private float pontos = 0;
 	static private int Recorde = 0;
+	private boolean comecar = false;
 	
 	private Paint paint;
 	private Paint paintText;
@@ -34,7 +37,8 @@ public class Nel extends View implements Runnable {
 		
 		paintText = new Paint();
 		paintText.setColor(Color.BLACK);
-
+		paintText.setTextSize(getWidth()/30);
+		
 		setFocusableInTouchMode(true);
 		setClickable(true);
 		setLongClickable(true);
@@ -51,6 +55,8 @@ public class Nel extends View implements Runnable {
 			coefStep += 0.01;
 			radiusStep = -1;
 		    paint.setColor(Color.GREEN);
+		    if(!comecar)
+		    	comecar = true;
 			
 		}
 
@@ -83,7 +89,9 @@ public class Nel extends View implements Runnable {
 		super.draw(canvas);
 		canvas.drawCircle(cx, cy, radius, paint);
 		canvas.drawText("pontos : " + (int) pontos  , 10, 100, paintText);
-		canvas.drawText("Recorde :"+ Recorde , 10, 50, paintText);
+		canvas.drawText( "Recorde :"+ Recorde , 10, 50, paintText);
+		if(!comecar)
+			canvas.drawText("Toque na tela para começar", (getHeight()/2) - 120, 150, paintText);
 	}
 
 	public void run() {
@@ -116,19 +124,20 @@ public class Nel extends View implements Runnable {
 	}
 
 	private void update() {
-		radius += (radiusStep * coefStep);
-		pontos += (0.3 * coefStep);
+		if(comecar){
+			radius += (radiusStep * coefStep);
+			pontos += (0.2 * coefStep);
+		}
+		
+		if(Recorde < pontos)
+			this.Recorde = (int) pontos;
 		
 		if(condicaoDerrota(this.radius, this.cx, this.cy)){
-			if(Recorde < pontos)
-				this.Recorde = (int) pontos;
-			
 			this.radius = 50;
 			this.coefStep = (float) 0.01;
 			this.pontos = 0;
+			this.comecar = false;
 		}
-		
-		
 	}
 
 }
