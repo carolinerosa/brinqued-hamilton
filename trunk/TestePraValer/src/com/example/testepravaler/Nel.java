@@ -24,6 +24,7 @@ public class Nel extends View implements Runnable {
 	private float pontos = 0;
 	static private int Recorde = 0;
 	private boolean comecar = false;
+	private float textSize = 0;
 	
 	private Paint paint;
 	private Paint paintText;
@@ -38,6 +39,8 @@ public class Nel extends View implements Runnable {
 		paintText = new Paint();
 		paintText.setColor(Color.BLACK);
 		paintText.setTextSize(getWidth()/30);
+		
+		
 		
 		setFocusableInTouchMode(true);
 		setClickable(true);
@@ -87,11 +90,15 @@ public class Nel extends View implements Runnable {
 	public void draw(Canvas canvas) {
 
 		super.draw(canvas);
-		canvas.drawCircle(cx, cy, radius, paint);
-		canvas.drawText("pontos : " + (int) pontos  , 10, 100, paintText);
-		canvas.drawText( "Recorde :"+ Recorde , 10, 50, paintText);
-		if(!comecar)
-			canvas.drawText("Toque na tela para começar", (getHeight()/2) - 120, 150, paintText);
+		if(comecar){
+			canvas.drawCircle(cx, cy, radius, paint);
+			canvas.drawText("pontos : " + (int) pontos, 10, (getHeight() / 5), paintText);
+			canvas.drawText( "Recorde :"+ Recorde , 10, (getHeight() / 8), paintText);
+		}else{
+			canvas.drawText("Nao deixe a bolinha sumir", getWidth() / 4, getHeight() / 2, paintText);
+			canvas.drawText("Não deixe ela tocar nos cantos", getWidth() / 4, (getHeight() / 2)-30, paintText);
+			canvas.drawText("Toque na tela para começar", getWidth() / 4, getHeight() / 3, paintText);
+		}
 	}
 
 	public void run() {
@@ -126,8 +133,11 @@ public class Nel extends View implements Runnable {
 	private void update() {
 		if(comecar){
 			radius += (radiusStep * coefStep);
-			pontos += (0.2 * coefStep);
+			pontos += (0.6 * coefStep);
 		}
+		
+		this.textSize = (getHeight() / 10)/3;
+		paintText.setTextSize(textSize);
 		
 		if(Recorde < pontos)
 			this.Recorde = (int) pontos;
