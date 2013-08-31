@@ -44,9 +44,11 @@ public class Bolinha {
 		paint.setColor(Color.RED);
 	}
 	
-	public void draw(Canvas canvas) {
+	public void draw(Canvas canvas) 
+	{
 
 		canvas.drawCircle(cx, cy, radius, paint);
+		
 	}
 	
 	public boolean condicaoDerrota(float radius, float cx, float cy){
