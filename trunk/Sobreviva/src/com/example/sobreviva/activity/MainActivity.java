@@ -4,6 +4,9 @@ package com.example.sobreviva.activity;
 
 
 
+
+import com.example.sobreviva.GerenciadorDeImagens;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -31,6 +34,7 @@ public class MainActivity extends Activity {
 	MainActivity Inst = this;
 	Instance = Inst;
 	//setContentView(R.layout.activity_main);
+	GerenciadorDeImagens.getInstance().CarregarImagens(this);
 	
 	CenaMenu();
 	
@@ -55,11 +59,21 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	public void CenaOpcoes(){
+	public void CenaOpcoes()
+	{
 		
 	}
 	
 	public void CenaLoja(){
+		Intent intent = new Intent(MainActivity.this, Loja.class);
+		startActivity(intent);
+		
+	}
+	
+	public void CenaLojaBolinha()
+	{
+		Intent intent = new Intent(MainActivity.this, LojaBolinha.class);
+		startActivity(intent);
 		
 	}
 	
