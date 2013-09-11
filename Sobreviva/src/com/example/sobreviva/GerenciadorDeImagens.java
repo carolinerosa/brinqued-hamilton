@@ -16,15 +16,20 @@ import android.widget.Toast;
 
 public class GerenciadorDeImagens {
 
-	private Bitmap BolaTest;
+	private Bitmap BitmapBolinha;
+	private Bitmap BitmapBackground;
 	private static GerenciadorDeImagens instance;
-	private String NomeDaImg = "BolaTeste.jpg";
-	boolean podeMudar = true;
+	private String NomeDaImgBolinha = "BolaTeste.jpg";
+	private String NomeDaImgBackground = "BolaTeste.jpg";
+	boolean podeMudarBolinha = true;
+	boolean podeMudarBackground = true;
 	
 	
 	
 	
-	private GerenciadorDeImagens(){
+	
+	private GerenciadorDeImagens()
+	{
 		
 		
 	} 
@@ -41,7 +46,7 @@ public class GerenciadorDeImagens {
 	
 	public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
 		 
-		bm  = BolaTest;
+		bm  = BitmapBolinha;
 		
 		int width = bm.getWidth();
 		 
@@ -70,17 +75,18 @@ public class GerenciadorDeImagens {
 		 
 		}
 	
-	public void CarregarImagens(Context context){
+	public void CarregarImagensBolinha(Context context)
+	{
 	
 		try 
 		{
-			if(podeMudar)
+			if(podeMudarBolinha)
 			{
 			//InputStream stream = context.getAssets().open("BolaTeste.jpg");
-			InputStream Nome = context.getAssets().open(NomeDaImg);
-			BolaTest = BitmapFactory.decodeStream(Nome);
+			InputStream Nome = context.getAssets().open(NomeDaImgBolinha);
+			BitmapBolinha = BitmapFactory.decodeStream(Nome);
 			
-			//podeMudar = false;
+			podeMudarBolinha = false;
 			
 			}
 		
@@ -88,21 +94,58 @@ public class GerenciadorDeImagens {
 		} 
 		catch (IOException e) 
 		{
-			Log.e("hu3", "Erro carregando imagem");
+			Log.e("hu3", "Erro carregando ImgBolinha");
 		}
 	}
 	
-	public Bitmap getImageBolaTest(Context context)
+	public void CarregarImagensBackground(Context context)
 	{
-		CarregarImagens(context);
-		return BolaTest;
+	
+		try 
+		{
+			if(podeMudarBackground)
+			{
+			//InputStream stream = context.getAssets().open("BolaTeste.jpg");
+			InputStream Nome = context.getAssets().open(NomeDaImgBackground);
+			BitmapBackground = BitmapFactory.decodeStream(Nome);
+			
+			podeMudarBackground = false;
+			
+			}
+		
+			
+		} 
+		catch (IOException e) 
+		{
+			Log.e("hu3", "Erro carregando Background");
+		}
 	}
 	
-	public void setImage(String NomeDaImg)
+	public Bitmap getImageBolinha(Context context)
 	{
-		this.NomeDaImg = NomeDaImg;
-		Log.e(NomeDaImg, "deu pepi");
-		//podeMudar = true;
+		CarregarImagensBolinha(context);
+		return BitmapBolinha;
+	}
+	
+	public void setImageBolinha(String NomeDaImg)
+	{
+		this.NomeDaImgBolinha = NomeDaImg;
+		Log.e(NomeDaImg, "nome da img");
+		podeMudarBolinha = true;
+		
+	}
+	
+	public Bitmap getImagesBackground(Context context)
+	{
+		CarregarImagensBackground(context);
+		return BitmapBackground;
+	}
+	
+	public void setImageBackground(String NomeDaImg)
+	{
+		this.NomeDaImgBackground = NomeDaImg;
+		Log.e(NomeDaImg, "nome da img");
+		podeMudarBackground = true;
 		
 	}
 	

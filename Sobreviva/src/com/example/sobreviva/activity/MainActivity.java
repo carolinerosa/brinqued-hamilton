@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
 	MainActivity Inst = this;
 	Instance = Inst;
 	//setContentView(R.layout.activity_main);
-	GerenciadorDeImagens.getInstance().CarregarImagens(this);
+	GerenciadorDeImagens.getInstance().CarregarImagensBolinha(this);
 	
 	CenaMenu();
 	

@@ -8,29 +8,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LojaBolinha" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
     <Button
         android:id="@+id/tipo1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="32dp"
+        android:layout_alignLeft="@+id/tipo2"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="46dp"
         android:onClick="tipo1"
         android:text="Tipo 1" />
 
     <Button
-        android:id="@+id/Tipo2"
+        android:id="@+id/tipo2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/tipo1"
         android:layout_below="@+id/tipo1"
-        android:layout_marginTop="41dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:onClick="tipo2"
         android:text="Tipo 2" />
+
+    <Button
+        android:id="@+id/tipo3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tipo2"
+        android:layout_below="@+id/tipo2"
+        android:layout_marginTop="18dp"
+        android:onClick="tipo3"
+        android:text="Tipo 3" />
 
 </RelativeLayout>
