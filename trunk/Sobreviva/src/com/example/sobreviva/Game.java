@@ -27,7 +27,8 @@ public class Game extends View implements Runnable {
 	static private int Recorde = 0;
 	private boolean comecar = false;
 	private float textSize = 0;
-	private Bitmap bitie;
+	private Bitmap bitieBolinha;
+	private Bitmap bitieBackground;
 
 	private Paint paint;
 	private Paint paintText;
@@ -38,8 +39,12 @@ public class Game extends View implements Runnable {
 	{
 		super(context);
 
-		bitie = GerenciadorDeImagens.getInstance().getImageBolaTest(
+		bitieBolinha = GerenciadorDeImagens.getInstance().getImageBolinha(
 				this.getContext());
+		
+		bitieBackground = GerenciadorDeImagens.getInstance().getImagesBackground(this.getContext());
+		
+		
 
 		radius = 50;
 		paint = new Paint();
@@ -104,28 +109,46 @@ public class Game extends View implements Runnable {
 		super.draw(canvas);
 		if (comecar) {
 			
-			// Como se ele fizesse um rect em cima da img e só desenha o que o rect estiver cubrindo da img
-			 Rect src = new Rect(10,10,200,200);
+			 //------------------------------- background ----------------------------------------
 			 
-			// Desenha x,y iniciais onde começa a img e x,y finais onde ela acaba
-			 Rect dest = new Rect(getWidth()/2-10 - largura ,getHeight()/2-10 - largura,getWidth()/2+10+largura,getHeight()/2+10+largura);
+			// Como se ele fizesse um rect em cima da img e só desenha o que o rect estiver cubrindo da img
+			 Rect srcBackground = new Rect(0,0,225,225 );
+			 
+			// Determina x,y iniciais onde começa a img e x,y finais onde ela acaba
+			 Rect destBackground = new Rect(0,0,getWidth(),getHeight());
 		
-			// canvas.drawCircle(cx, cy, radius, paint);
-			// canvas.drawBitmap(GerenciadorDeImagens.getInstance().getImageBolaTest(this.getContext()),
-			// cx, cy, paint);
-
-			// Bitmap resizedBitmap =
-			// Bitmap.createScaledBitmap(GerenciadorDeImagens.getInstance().getImageBolaTest(this.getContext()),200,
-			// 30, true);
-			 canvas.drawBitmap(GerenciadorDeImagens.getInstance().getImageBolaTest(this.getContext()), src, dest, paint);
-
-			//canvas.drawBitmap(GerenciadorDeImagens.getInstance().getResizedBitmap(GerenciadorDeImagens.getInstance().getImageBolaTest(this.getContext()),largura, altura), 7, 3, paint);
+			// Desenha o bitmap com os rects criados acima;
+			 canvas.drawBitmap(bitieBackground, srcBackground, destBackground, paint);
+			 
+			 if (bitieBackground != null && bitieBackground.isRecycled()) 
+             {
+                 bitieBackground.recycle();
+                 bitieBackground = null;
+                 System.gc(); 
+             }
 			
-			GerenciadorDeImagens.getInstance().getImageBolaTest(this.getContext()).recycle();
+			//------------------------------ bolinha------------------------------------------------
+			
+			// Como se ele fizesse um rect em cima da img e só desenha o que o rect estiver cubrindo da img
+			 Rect srcBolinha = new Rect(0,0,225,225 );
+			 
+			// Determina x,y iniciais onde começa a img e x,y finais onde ela acaba
+			 Rect destBolinha = new Rect(getWidth()/2-10 - largura ,getHeight()/2-10 - largura,getWidth()/2+10+largura,getHeight()/2+10+largura);
+		
+			// Desenha o bitmap com os rects criados acima;
+			 canvas.drawBitmap(bitieBolinha, srcBolinha, destBolinha, paint);
 
-			// canvas.drawBitmap(GerenciadorDeImagens.getInstance().getImageBolaTest(this.getContext()),
-			// matrixx, paint);
-			// invalidate();
+						
+			 if (bitieBolinha != null && bitieBolinha.isRecycled()) 
+             {
+                 bitieBolinha.recycle();
+                 bitieBolinha = null;
+                 System.gc(); 
+             }
+			 
+			
+
+			
 
 			canvas.drawText("pontos : " + (int) pontos, 10, (getHeight() / 5),
 					paintText);
@@ -168,7 +191,9 @@ public class Game extends View implements Runnable {
 	//		return true;
 	//	if (cy - radius < 0)
 	//		return true;
-		if(largura > 230)
+		if(largura > 220)
+			return true;
+		if(largura <= 0)
 			return true;
 		
 
@@ -190,7 +215,6 @@ public class Game extends View implements Runnable {
 
 		if (condicaoDerrota(this.radius, this.cx, this.cy)) {
 			this.radius = 50;
-			
 			this.coefStep = (float) 0.01;
 			this.pontos = 0;
 			this.comecar = false;
