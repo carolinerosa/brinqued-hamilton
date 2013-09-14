@@ -14,22 +14,22 @@ import android.view.View;
 
 public class Game extends View implements Runnable {
 
+	private int dinheiro = 0;
+	private int pontosguardados = 100;
 	private int cont = 1;
 	private int largura = 10;
 	private int altura = 10;
 	private int timeSleepThread = 1;
-	private int cx;
-	private int cy;
-	private float radius;
+	private int velocidade = 100;
 	private float coefStep = (float) 0.01;
 	private float radiusStep = 1;
 	private float pontos = 0;
 	static private int Recorde = 0;
 	private boolean comecar = false;
+	private boolean podediminuirver = false;
 	private float textSize = 0;
 	private Bitmap bitieBolinha;
 	private Bitmap bitieBackground;
-
 	private Paint paint;
 	private Paint paintText;
 	
@@ -39,14 +39,13 @@ public class Game extends View implements Runnable {
 	{
 		super(context);
 
-		bitieBolinha = GerenciadorDeImagens.getInstance().getImageBolinha(
-				this.getContext());
+		bitieBolinha = GerenciadorDeImagens.getInstance().getImageBolinha(this.getContext());
 		
 		bitieBackground = GerenciadorDeImagens.getInstance().getImagesBackground(this.getContext());
 		
 		
 
-		radius = 50;
+		//radius = 50;
 		paint = new Paint();
 		paint.setColor(Color.BLUE);
 
@@ -96,11 +95,11 @@ public class Game extends View implements Runnable {
 		return super.onTouchEvent(event);
 	}
 
-	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) 
+	{
 		super.onSizeChanged(w, h, oldw, oldh);
 
-		cx = getWidth() / 2;
-		cy = getHeight() / 2;
+		
 
 	}
 
@@ -148,11 +147,13 @@ public class Game extends View implements Runnable {
 			 
 			
 
-			
+			paintText.setColor(Color.RED);
 
-			canvas.drawText("pontos : " + (int) pontos, 10, (getHeight() / 5),
+			canvas.drawText("pontos : " + (int) pontos, 10, (getHeight() / 6),
 					paintText);
 			canvas.drawText("Recorde :" + Recorde, 10, (getHeight() / 8),
+					paintText);
+			canvas.drawText("Dinheiro :" + dinheiro, 170, (getHeight() / 8 ),
 					paintText);
 			postInvalidate();
 		} else {
@@ -167,7 +168,8 @@ public class Game extends View implements Runnable {
 
 	public void run() {
 		while (true) {
-			try {
+			try 
+			{
 				Thread.sleep(timeSleepThread);
 			} catch (InterruptedException e) {
 				// Log.e(MainActivity.TAG, "interrupcao do run()");
@@ -179,18 +181,9 @@ public class Game extends View implements Runnable {
 
 	}
 
-	public boolean condicaoDerrota(float radius, float cx, float cy) {
-
-	//	if (radius <= 0)
-	//		return true;
-	//	if (cx + radius >= getWidth())
-	//		return true;
-	//	if (cy + radius >= getHeight())
-	//		return true;
-	//	if (cx - radius < 0)
-	//		return true;
-	//	if (cy - radius < 0)
-	//		return true;
+	public boolean condicaoDerrota() 
+	{
+	
 		if(largura > 220)
 			return true;
 		if(largura <= 0)
@@ -200,10 +193,31 @@ public class Game extends View implements Runnable {
 		return false;
 	}
 
-	private void update() {
+	private void update() 
+	{
+		if(velocidade <= 1)
+		{
+			podediminuirver =  false;
+			velocidade = -10;
+		}
 
-		if (comecar) {
-			radius += (radiusStep * coefStep);
+		// aqui é a velocidade baseada nos pontos, essa velocidade é usada no "metodo" de aumentar e deminuir da bola
+		if(pontos > pontosguardados)
+		{
+			
+			velocidade -= 1;
+			pontosguardados += 30;
+			
+			
+		}
+		
+		
+		
+		//------------------------ velocidade bolinha--------------------
+			
+		if (comecar) 
+		{
+			//radius += (radiusStep * coefStep);
 			pontos += (0.6 * coefStep);
 		}
 
@@ -213,33 +227,35 @@ public class Game extends View implements Runnable {
 		if (Recorde < pontos)
 			this.Recorde = (int) pontos;
 
-		if (condicaoDerrota(this.radius, this.cx, this.cy)) {
-			this.radius = 50;
+		if (condicaoDerrota()) 
+		{
+			this.largura = 10;
+			this.altura = 10;
+			this.pontosguardados = 100;
+			this.velocidade = 100;
 			this.coefStep = (float) 0.01;
 			this.pontos = 0;
 			this.comecar = false;
 		}
 
-		if (cont > 80) {
-			largura += radiusStep * 10;
-			altura+= radiusStep * 10;
+		// metodo de aumentar e diminuir a bola de acordo com a velocidade que foi mudada acima
+		if (cont > velocidade) 
+		{
+			largura += radiusStep * 10 ;
+			altura += radiusStep * 10;
+			dinheiro++;
+			
 			cont = 0;
 
 		} else {
 			cont++;
 		}
 		
-		if(largura >= 230)
-		{
-			largura = 1;
-		}
-		if(altura >= 230)
-		{
-			altura =1;
-		}
+		
 
 		
 		Log.i("valor", largura + " :) " + altura);
+		Log.i("valor", velocidade + " --> ");
 	}
 
 }
