@@ -9,6 +9,7 @@ import com.example.sobreviva.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Canvas;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -34,7 +35,7 @@ public class LojaBolinha extends Activity
 	
 	public void tipo1(View v)
 	{
-		GerenciadorDeImagens.getInstance().setImageBolinha("tipo1.jpg");
+		GerenciadorDeImagens.getInstance().setImageBolinha("tipo1.png");
 		Toast.makeText(MainActivity.Instance, "Tipo 1 setado", Toast.LENGTH_SHORT).show(); 
 		
 	}
@@ -50,6 +51,11 @@ public class LojaBolinha extends Activity
 	{
 		GerenciadorDeImagens.getInstance().setImageBolinha("tipo3.jpg");
 		Toast.makeText(MainActivity.Instance, "Tipo 3 setado", Toast.LENGTH_SHORT).show(); 
+		
+	}
+	
+	public void draw(Canvas canvas)
+	{
 		
 	}
 
