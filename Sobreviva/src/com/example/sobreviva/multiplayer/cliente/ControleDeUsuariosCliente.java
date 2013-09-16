@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.example.sobreviva.MultiplayerGameView;
+import com.example.sobreviva.activity.MainActivity;
 import com.example.sobreviva.multiplayer.util.Conexao;
 import com.example.sobreviva.multiplayer.util.DepoisDeReceberDados;
 import com.example.sobreviva.multiplayer.util.Protocolo;
@@ -18,6 +20,7 @@ import android.util.Log;
 public class ControleDeUsuariosCliente implements DepoisDeReceberDados {
 
 	private ConcurrentHashMap<String, Integer> jogadores;
+	private MultiplayerGameView game;
 
 	public ConcurrentHashMap<String, Integer> getJogadores() {
 		return jogadores;
@@ -41,6 +44,9 @@ public class ControleDeUsuariosCliente implements DepoisDeReceberDados {
 			updateScore(origem, lista[1]);
 		}
 		
+		if (linha.startsWith(Protocolo.PROTOCOL_START)) {
+			iniciarJogo();
+		}
 		
 	}
 	
@@ -59,15 +65,13 @@ public class ControleDeUsuariosCliente implements DepoisDeReceberDados {
 		}
 	}
 	
-	
+	public void setGame(MultiplayerGameView game){
+		this.game = game;
+	}
 	
 	public void iniciarJogo(){
 		
-		/*JogadorCliente meuJogador = GerenciadorActivity.GetInstance().getPlayer();
-		JogadorCliente jogador = jogadores.get(meuJogador.getNome());
-		if (jogador == null) {
-			jogadores.put(meuJogador.getNome(), meuJogador);
-		}*/
+		MainActivity.GetInstance().switchView(new MultiplayerGameView());
 	}
 	
 }

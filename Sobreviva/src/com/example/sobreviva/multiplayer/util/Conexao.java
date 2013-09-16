@@ -62,6 +62,10 @@ public class Conexao implements Runnable, Killable {
 		}
 		return null;
 	}
+	
+	public DepoisDeReceberDados getTratador(){
+		return this.depoisDeReceberDadosHandler;
+	}
 
 	/**
 	 * le continuamente da conexao
@@ -73,7 +77,6 @@ public class Conexao implements Runnable, Killable {
 			try {
 				// bloqueante !!
 				String linha = leitor.readLine();
-
 				// para cada linha nao nula chama o respectivo handler
 				if (linha != null) {
 					Log.i(TAG, "linha recebida: " + linha);

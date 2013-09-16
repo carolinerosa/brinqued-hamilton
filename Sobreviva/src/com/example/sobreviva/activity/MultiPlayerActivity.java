@@ -22,6 +22,7 @@ import com.example.sobreviva.multiplayer.util.ViewUtil;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
@@ -113,11 +114,12 @@ public class MultiPlayerActivity extends Activity {
 
 				// garante que view possa recuperar a lista de usuarios atual e
 				// enviar dados pela rede
+				
+				carregando();
+				
 
-
-				MultiplayerGameView multiplayerGame = new MultiplayerGameView(this, conexao,
-						(ControleDeUsuariosCliente) tratadorDeDadosDoCliente);
-				setContentView(multiplayerGame);
+//				MultiplayerGameView multiplayerGame = new MultiplayerGameView();
+//				setContentView(multiplayerGame);
 			}
 
 		} catch (UnknownHostException e)
@@ -186,13 +188,16 @@ public class MultiPlayerActivity extends Activity {
 				//usuario = GerenciadorActivity.GetInstance().getPlayer().getNome();
 				Socket s = new Socket(ip, PORTA_PADRAO);
 				conexao = new Conexao(s, usuario, tratadorDeDadosDoCliente);
-
+				
+				
+				carregando();
+					
 				// garante que view possa recuperar a lista de usuarios atual e
 				// enviar dados pela rede
 
-				MultiplayerGameView multiplayerGame = new MultiplayerGameView(this, conexao,
-						(ControleDeUsuariosCliente) tratadorDeDadosDoCliente);
-				setContentView(multiplayerGame);
+//				MultiplayerGameView multiplayerGame = new MultiplayerGameView();
+//				
+//				setContentView(multiplayerGame);
 
 			} catch (UnknownHostException e)
 			{
@@ -206,6 +211,20 @@ public class MultiPlayerActivity extends Activity {
 			}
 		}
 	}
+	
+	private void carregando(){
+		
+		String ip = RedeUtil.getLocalIpAddress();
+		
+		ProgressDialog progressDialog;
+		
+		progressDialog = new ProgressDialog(this);
+
+		progressDialog.setMessage("Aguarde a entrada de outros jogadores \nSeu IP é: " + ip);
+
+		progressDialog.show();
+	}
+	
 
 	/**
 	 * @see http 

@@ -20,8 +20,8 @@ public class ControleDeUsuariosServidor implements DepoisDeReceberDados {
 	// notar que este tipo de hashmap eh sincronizado
 	// suportando acessos de multiplos threads
 	private ConcurrentHashMap<String, Cliente> jogadores;
-	
-	
+	private ArrayList<Conexao> tdsConexoes;
+	private int numClientes = 0;
 	
 	public ConcurrentHashMap<String, Cliente> getJogadoresList(){
 		return this.jogadores;
@@ -30,6 +30,7 @@ public class ControleDeUsuariosServidor implements DepoisDeReceberDados {
 	
 	public ControleDeUsuariosServidor() {
 		jogadores = new ConcurrentHashMap<String, Cliente>();
+		tdsConexoes = new ArrayList<Conexao>();
 	}
 	
 	
@@ -56,16 +57,17 @@ public class ControleDeUsuariosServidor implements DepoisDeReceberDados {
 	}
 
 	private void informaTodosUsuarios(Conexao origem) {
-
-		//StringBuffer buffer = new StringBuffer();
-		Iterator iterator = jogadores.keySet().iterator();
-		while (iterator.hasNext()) {
-			String key = (String) iterator.next();
-			Cliente jogador = jogadores.get(key);
-			
-			origem.write(Protocolo.PROTOCOL_UPDATE + jogador.toStringCSV());
+		
+		if(jogadores.size() >= 2){
+			//StringBuffer buffer = new StringBuffer();
+			Iterator iterator = jogadores.keySet().iterator();
+			while (iterator.hasNext()) {
+				String key = (String) iterator.next();
+				Cliente jogador = jogadores.get(key);
+				
+				origem.write(Protocolo.PROTOCOL_UPDATE + jogador.toStringCSV());
+			}
 		}
-
 		//origem.write(Protocolo.PROTOCOL_UPDATE + buffer.toString());
 	}
 
@@ -76,8 +78,16 @@ public class ControleDeUsuariosServidor implements DepoisDeReceberDados {
 
 		origem.setId(nome);
 		Cliente jogador = new Cliente(nome, 0);
-		jogadores.put(nome, jogador);
-		
+		if(numClientes <= 2){
+			jogadores.put(nome, jogador);
+			numClientes++;
+			tdsConexoes.add(origem);
+			if(numClientes >= 2){
+				for (int i = 0; i < tdsConexoes.size(); i++) {
+					tdsConexoes.get(i).write(Protocolo.PROTOCOL_START);
+				}
+			}
+		}
 	}
 	
 	private void updateScore(Conexao origem, String linha){

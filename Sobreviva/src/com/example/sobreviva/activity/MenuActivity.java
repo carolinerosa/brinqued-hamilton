@@ -33,27 +33,27 @@ public class MenuActivity extends Activity {
 	}
 
 	public void Click_Single(View v){
-		GerenteCenas.CenaSinglePlayer();
+		GerenteCenas.switchActivity(GerenteCenas, SinglePlayerActivity.class);
 	}
 	
 	public void Click_Multi(View v){
-		GerenteCenas.CenaMultiPlayer();
+		GerenteCenas.switchActivity(GerenteCenas, MultiPlayerActivity.class);
 	}
 	
 	public void Click_Opcoes(View v){
-		GerenteCenas.CenaOpcoes();
+		
 	}
 	
 	public void Click_Loja(View v){
-		GerenteCenas.CenaLoja();
+		GerenteCenas.switchActivity(GerenteCenas, Loja.class);
 	}
 	
 	public void Click_Instrucoes(View v){
-		GerenteCenas.CenaInstrucoes();
+		
 	}
 	
 	public void Click_Creditos(View v){
-		GerenteCenas.CenaCredito();
+		
 	}
 
 }
