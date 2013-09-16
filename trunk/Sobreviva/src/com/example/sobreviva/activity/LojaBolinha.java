@@ -36,21 +36,21 @@ public class LojaBolinha extends Activity
 	public void tipo1(View v)
 	{
 		GerenciadorDeImagens.getInstance().setImageBolinha("tipo1.png");
-		Toast.makeText(MainActivity.Instance, "Tipo 1 setado", Toast.LENGTH_SHORT).show(); 
+		Toast.makeText(MainActivity.GetInstance(), "Tipo 1 setado", Toast.LENGTH_SHORT).show(); 
 		
 	}
 	
 	public void tipo2(View v)
 	{
 		GerenciadorDeImagens.getInstance().setImageBolinha("tipo2.png");
-		Toast.makeText(MainActivity.Instance, "Tipo 2 setado", Toast.LENGTH_SHORT).show(); 
+		Toast.makeText(MainActivity.GetInstance(), "Tipo 2 setado", Toast.LENGTH_SHORT).show(); 
 		
 	}
 	
 	public void tipo3(View v)
 	{
 		GerenciadorDeImagens.getInstance().setImageBolinha("tipo3.jpg");
-		Toast.makeText(MainActivity.Instance, "Tipo 3 setado", Toast.LENGTH_SHORT).show(); 
+		Toast.makeText(MainActivity.GetInstance(), "Tipo 3 setado", Toast.LENGTH_SHORT).show(); 
 		
 	}
 	

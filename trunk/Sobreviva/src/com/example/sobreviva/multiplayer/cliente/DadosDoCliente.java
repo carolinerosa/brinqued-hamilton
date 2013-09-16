@@ -43,7 +43,9 @@ public class DadosDoCliente implements Runnable, Killable {
 		return nome;
 	}
 	
-	
+	public void setPontos(int pontos){
+		this.pontuacao = pontos; 
+	}
 	
 
 	public void killMeSoftly() {

@@ -32,7 +32,7 @@ public class Loja extends Activity {
 	
 	public void lojaBolinha(View v)
 	{
-		GerenteCenas.CenaLojaBolinha();
+		GerenteCenas.switchActivity(this, LojaBolinha.class);
 	}
 
 }
