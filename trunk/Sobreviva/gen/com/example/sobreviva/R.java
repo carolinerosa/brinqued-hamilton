@@ -22,27 +22,31 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int loja=0x7f020001;
+        public static final int menu=0x7f020002;
+        public static final int simpsombt=0x7f020003;
+        public static final int space=0x7f020004;
+        public static final int tipo1=0x7f020005;
+        public static final int vzio=0x7f020006;
     }
     public static final class id {
         public static final int Bolinha=0x7f080001;
-        public static final int action_settings=0x7f080012;
-        public static final int buttonConectar=0x7f080011;
-        public static final int buttonCriarServer=0x7f08000e;
-        public static final int creditos=0x7f08000b;
-        public static final int editIP=0x7f080010;
-        public static final int editNome=0x7f08000d;
-        public static final int fundo=0x7f080002;
-        public static final int instrucoes=0x7f08000a;
+        public static final int action_settings=0x7f080010;
+        public static final int buttonConectar=0x7f08000f;
+        public static final int buttonCriarServer=0x7f08000c;
+        public static final int creditos=0x7f080006;
+        public static final int editIP=0x7f08000e;
+        public static final int editNome=0x7f08000b;
+        public static final int fundo=0x7f080000;
+        public static final int instrucoes=0x7f080007;
         public static final int loja=0x7f080009;
-        public static final int multiplayer=0x7f080007;
-        public static final int opcoes=0x7f080008;
-        public static final int singlePlayer=0x7f080006;
-        public static final int textIP=0x7f08000f;
-        public static final int textNome=0x7f08000c;
-        public static final int textView1=0x7f080000;
-        public static final int tipo1=0x7f080003;
-        public static final int tipo2=0x7f080004;
-        public static final int tipo3=0x7f080005;
+        public static final int multiplayer=0x7f080008;
+        public static final int singlePlayer=0x7f080005;
+        public static final int textIP=0x7f08000d;
+        public static final int textNome=0x7f08000a;
+        public static final int tipo1=0x7f080002;
+        public static final int tipo2=0x7f080003;
+        public static final int tipo3=0x7f080004;
     }
     public static final class layout {
         public static final int activity_loja=0x7f030000;

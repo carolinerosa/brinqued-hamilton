@@ -16,7 +16,8 @@ public class MenuActivity extends Activity {
 	private MainActivity GerenteCenas; 
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		
 		// Sem Activity e em modo Fullcreen.
@@ -55,5 +56,7 @@ public class MenuActivity extends Activity {
 	public void Click_Creditos(View v){
 		
 	}
+	
+	
 
 }
