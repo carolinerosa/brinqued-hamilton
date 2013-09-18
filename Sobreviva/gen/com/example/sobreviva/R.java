@@ -23,14 +23,15 @@ public final class R {
     public static final class drawable {
         public static final int creditosbg=0x7f020000;
         public static final int ic_launcher=0x7f020001;
-        public static final int instrucoesbg=0x7f020002;
-        public static final int loja=0x7f020003;
-        public static final int menu=0x7f020004;
-        public static final int monstrosabt=0x7f020005;
-        public static final int simpsombt=0x7f020006;
-        public static final int space=0x7f020007;
-        public static final int tipo1=0x7f020008;
-        public static final int vzio=0x7f020009;
+        public static final int iconenovo=0x7f020002;
+        public static final int instrucoesbg=0x7f020003;
+        public static final int loja=0x7f020004;
+        public static final int menu=0x7f020005;
+        public static final int monstrosabt=0x7f020006;
+        public static final int simpsombt=0x7f020007;
+        public static final int space=0x7f020008;
+        public static final int tipo1=0x7f020009;
+        public static final int vzio=0x7f02000a;
     }
     public static final class id {
         public static final int Bolinha=0x7f080001;
