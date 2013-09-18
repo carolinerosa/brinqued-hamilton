@@ -1,16 +1,22 @@
 package com.example.sobreviva;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.os.Bundle;
 
 public class Game extends View implements Runnable {
 
@@ -32,6 +38,7 @@ public class Game extends View implements Runnable {
 	private Bitmap bitieBackground;
 	private Paint paint;
 	private Paint paintText;
+	private Bitmap BitmapTouchRedButton;
 	
 	
 
@@ -145,24 +152,35 @@ public class Game extends View implements Runnable {
                  System.gc(); 
              }
 			 
-			
+			 Typeface atle = Typeface.createFromAsset(getContext().getAssets(),
+				        "Athletic.ttf");
+			paintText.setTypeface(atle);
 
 			paintText.setColor(Color.RED);
 
-			canvas.drawText("pontos : " + (int) pontos, 10, (getHeight() / 6),
+			canvas.drawText("PONTOS : " + (int) pontos, 10, (getHeight() / 6),
 					paintText);
-			canvas.drawText("Recorde :" + Recorde, 10, (getHeight() / 8),
+			canvas.drawText("RECORDE :" + Recorde, 10, (getHeight() / 8),
 					paintText);
-			canvas.drawText("Dinheiro :" + dinheiro, 170, (getHeight() / 8 ),
+			canvas.drawText("DINHEIRO :" + dinheiro, 170, (getHeight() / 8 ),
 					paintText);
 			postInvalidate();
 		} else {
-			canvas.drawText("Nao deixe a bolinha sumir", getWidth() / 4,
-					getHeight() / 2, paintText);
-			canvas.drawText("Não deixe ela tocar nos cantos", getWidth() / 4,
-					(getHeight() / 2) - 30, paintText);
-			canvas.drawText("Toque na tela para começar", getWidth() / 4,
-					getHeight() / 3, paintText);
+			try
+			{
+			Rect touchsrc = new Rect (0,0,450,800);
+			Rect touchdst = new Rect (0,0,getWidth(),getHeight());
+			
+			InputStream Nome = getContext().getAssets().open("touch.png");
+			BitmapTouchRedButton = BitmapFactory.decodeStream(Nome);
+			
+			canvas.drawBitmap(BitmapTouchRedButton, touchsrc, touchdst, paint);
+			}
+			catch (IOException e) 
+			{
+				Log.e("hu3", "Erro carregando imagemtouchredbutton");
+			}
+			
 		}
 	}
 
