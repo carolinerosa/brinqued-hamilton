@@ -1,12 +1,14 @@
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/menu"
+    android:gravity="center_horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/menu"
     tools:context=".MenuActivity" >
 
     <Button
@@ -14,63 +16,64 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:layout_marginLeft="-1dp"
-        android:layout_marginRight="-1dp"
-        android:layout_marginTop="1dp"
+       
+   
+        android:background="@drawable/vzio"
         android:onClick="Click_Single"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="45sp" 
-        android:background="@drawable/vzio"/>
-
-    <Button
-        android:id="@+id/multiplayer"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/singlePlayer"
-        android:layout_below="@+id/singlePlayer"
-        android:layout_marginTop="14dp"
-        android:onClick="Click_Multi"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="50sp"
-        android:background="@drawable/vzio" />
-
-    <Button
-        android:id="@+id/loja"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/multiplayer"
-        android:layout_centerVertical="true"
-        android:onClick="Click_Loja"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="50sp" 
-        android:background="@drawable/vzio"/>
-
-    <Button
-        android:id="@+id/instrucoes"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/creditos"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="14dp"
-        android:onClick="Click_Instrucoes"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="50sp" 
-        android:background="@drawable/vzio"/>
+        android:textSize="50sp" />
 
     <Button
         android:id="@+id/creditos"
         style="?android:attr/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/instrucoes"
         android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/instrucoes"
+        android:background="@drawable/vzio"
+        android:minWidth="48dip"
         android:onClick="Click_Creditos"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="50sp" 
-        android:background="@drawable/vzio"/>
+        android:textSize="50sp" />
+
+    <Button
+        android:id="@+id/instrucoes"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/creditos"
+        android:layout_alignLeft="@+id/multiplayer"
+        android:layout_marginBottom="58dp"
+        android:background="@drawable/vzio"
+        android:minHeight="10dip"
+        android:minWidth="10dip"
+        android:onClick="Click_Instrucoes"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="50sp" />
+
+    <Button
+        android:id="@+id/loja"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/instrucoes"
+        android:layout_centerVertical="true"
+        android:background="@drawable/vzio"
+        android:onClick="Click_Loja"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="50sp" />
+
+    <Button
+        android:id="@+id/multiplayer"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/singlePlayer"
+        android:layout_below="@+id/singlePlayer"
+        android:background="@drawable/vzio"
+        android:onClick="Click_Multi"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="50sp" />
     
 </RelativeLayout>
+

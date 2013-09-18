@@ -7,8 +7,12 @@ import com.example.sobreviva.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Toast;
 
 public class Loja extends Activity {
 	
@@ -18,6 +22,12 @@ public class Loja extends Activity {
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		// Sem Activity e em modo Fullcreen.
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+	    this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.activity_loja);
 		GerenteCenas = MainActivity.GetInstance();
 	}
@@ -30,9 +40,20 @@ public class Loja extends Activity {
 		return true;
 	}
 	
-	public void lojaBolinha(View v)
+	public void Space(View v)
 	{
-		GerenteCenas.switchActivity(this, LojaBolinha.class);
+		GerenciadorDeImagens.getInstance().setImageBolinha("space.png");
+		GerenciadorDeImagens.getInstance().setImageBackground("spacebg.png");
+		Toast.makeText(MainActivity.GetInstance(), "Agora seu tema é SPACE", Toast.LENGTH_SHORT).show(); 
+		//GerenteCenas.switchActivity(this, LojaBolinha.class);
+	}
+	
+	public void Simpsom(View v)
+	{
+		GerenciadorDeImagens.getInstance().setImageBolinha("simpsom.png");
+		GerenciadorDeImagens.getInstance().setImageBackground("simpsombg.png");
+		Toast.makeText(MainActivity.GetInstance(), "Agora seu tema é Homer e a Rosca", Toast.LENGTH_SHORT).show(); 
+		//GerenteCenas.switchActivity(this, LojaBolinha.class);
 	}
 
 }

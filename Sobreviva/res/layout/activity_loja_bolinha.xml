@@ -38,4 +38,6 @@
         android:onClick="tipo3"
         android:text="Tipo 3" />
 
+    
+
 </RelativeLayout>

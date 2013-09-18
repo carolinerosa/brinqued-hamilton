@@ -111,7 +111,7 @@ public class Game extends View implements Runnable {
 			 //------------------------------- background ----------------------------------------
 			 
 			// Como se ele fizesse um rect em cima da img e só desenha o que o rect estiver cubrindo da img
-			 Rect srcBackground = new Rect(0,0,225,225 );
+			 Rect srcBackground = new Rect(0,0,450,800 );
 			 
 			// Determina x,y iniciais onde começa a img e x,y finais onde ela acaba
 			 Rect destBackground = new Rect(0,0,getWidth(),getHeight());
