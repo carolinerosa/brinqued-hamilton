@@ -49,12 +49,14 @@ public class MenuActivity extends Activity {
 		GerenteCenas.switchActivity(GerenteCenas, Loja.class);
 	}
 	
-	public void Click_Instrucoes(View v){
-		
+	public void Click_Instrucoes(View v)
+	{
+		GerenteCenas.switchActivity(GerenteCenas, InstrucoesActivity.class);
 	}
 	
-	public void Click_Creditos(View v){
-		
+	public void Click_Creditos(View v)
+	{
+		GerenteCenas.switchActivity(GerenteCenas, CreditosActivity.class);
 	}
 	
 	

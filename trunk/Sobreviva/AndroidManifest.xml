@@ -55,6 +55,14 @@
             android:name="com.example.sobreviva.activity.LojaBolinha"
             android:label="@string/title_activity_loja_bolinha" >
         </activity>
+        <activity
+            android:name="com.example.sobreviva.activity.InstrucoesActivity"
+            android:label="@string/title_activity_instrucoes" >
+        </activity>
+        <activity
+            android:name="com.example.sobreviva.activity.CreditosActivity"
+            android:label="@string/title_activity_creditos" >
+        </activity>
     </application>
 
 </manifest>

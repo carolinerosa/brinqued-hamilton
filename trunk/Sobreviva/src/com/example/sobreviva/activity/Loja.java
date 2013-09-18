@@ -55,5 +55,13 @@ public class Loja extends Activity {
 		Toast.makeText(MainActivity.GetInstance(), "Agora seu tema é Homer e a Rosca", Toast.LENGTH_SHORT).show(); 
 		//GerenteCenas.switchActivity(this, LojaBolinha.class);
 	}
+	
+	public void MonstroSA(View v)
+	{
+		GerenciadorDeImagens.getInstance().setImageBolinha("monstrosa.png");
+		GerenciadorDeImagens.getInstance().setImageBackground("monstrosabg.png");
+		Toast.makeText(MainActivity.GetInstance(), "Agora seu tema é Monstros S.A.", Toast.LENGTH_SHORT).show(); 
+		//GerenteCenas.switchActivity(this, LojaBolinha.class);
+	}
 
 }
