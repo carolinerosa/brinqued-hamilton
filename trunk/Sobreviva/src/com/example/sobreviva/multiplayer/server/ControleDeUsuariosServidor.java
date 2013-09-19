@@ -9,13 +9,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import com.example.sobreviva.multiplayer.util.Conexao;
 import com.example.sobreviva.multiplayer.util.Const;
 import com.example.sobreviva.multiplayer.util.DepoisDeReceberDados;
+import com.example.sobreviva.multiplayer.util.ElMatador;
+import com.example.sobreviva.multiplayer.util.Killable;
 import com.example.sobreviva.multiplayer.util.Protocolo;
 
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.util.Log;
 
-public class ControleDeUsuariosServidor implements DepoisDeReceberDados {
+public class ControleDeUsuariosServidor implements DepoisDeReceberDados, Killable {
 
 	// notar que este tipo de hashmap eh sincronizado
 	// suportando acessos de multiplos threads
@@ -31,6 +33,7 @@ public class ControleDeUsuariosServidor implements DepoisDeReceberDados {
 	public ControleDeUsuariosServidor() {
 		jogadores = new ConcurrentHashMap<String, Cliente>();
 		tdsConexoes = new ArrayList<Conexao>();
+		ElMatador.getInstance().add(this);
 	}
 	
 	
@@ -59,7 +62,7 @@ public class ControleDeUsuariosServidor implements DepoisDeReceberDados {
 	private void informaTodosUsuarios(Conexao origem) {
 		
 		if(jogadores.size() >= 2){
-			//StringBuffer buffer = new StringBuffer();
+//			StringBuffer buffer = new StringBuffer();
 			Iterator iterator = jogadores.keySet().iterator();
 			while (iterator.hasNext()) {
 				String key = (String) iterator.next();
@@ -68,7 +71,7 @@ public class ControleDeUsuariosServidor implements DepoisDeReceberDados {
 				origem.write(Protocolo.PROTOCOL_UPDATE + jogador.toStringCSV());
 			}
 		}
-		//origem.write(Protocolo.PROTOCOL_UPDATE + buffer.toString());
+//		origem.write(Protocolo.PROTOCOL_UPDATE + buffer.toString());
 	}
 
 
@@ -82,6 +85,7 @@ public class ControleDeUsuariosServidor implements DepoisDeReceberDados {
 			jogadores.put(nome, jogador);
 			numClientes++;
 			tdsConexoes.add(origem);
+			origem.write(Protocolo.PROTOCOL_START);
 			if(numClientes >= 2){
 				for (int i = 0; i < tdsConexoes.size(); i++) {
 					tdsConexoes.get(i).write(Protocolo.PROTOCOL_START);
@@ -92,16 +96,19 @@ public class ControleDeUsuariosServidor implements DepoisDeReceberDados {
 	
 	private void updateScore(Conexao origem, String linha){
 		String[] array = linha.split(",");
-		//String nome = array[1];
+		String nome = array[1];
 		int pontos = Integer.parseInt(array[2]);
-		
-		jogadores.get(origem.getId()).setPontuacao(pontos);
+		Cliente jogador = jogadores.get(nome);
+		jogador.setPontuacao(pontos);
+	}
+
+
+	@Override
+	public void killMeSoftly() {
+		for (int i = 0; i < tdsConexoes.size(); i++) {
+			tdsConexoes.get(i).killMeSoftly();
+		}
 	}
 	
-	private void configuracaoPrimarias(Conexao origem) {
-		
-		//origem.write(Protocolo.PROTOCOL_MAPA + MapaServer.toStringCSV());
-		
-	}
 
 }

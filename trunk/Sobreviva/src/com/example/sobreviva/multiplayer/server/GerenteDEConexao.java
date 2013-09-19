@@ -93,6 +93,10 @@ public class GerenteDEConexao implements Runnable, Killable {
 	}
 
 	public void killMeSoftly() {
+		
+		ControleDeUsuariosServidor controle = (ControleDeUsuariosServidor)depoisDeReceberDadosHandler;
+		controle.killMeSoftly();
+		
 		if (servidor != null) {
 			try {
 				servidor.close();

@@ -2,16 +2,22 @@ package com.example.sobreviva.activity;
 
 import com.example.sobreviva.R;
 import com.example.sobreviva.R.layout;
+import com.example.sobreviva.multiplayer.util.Const;
+import com.example.sobreviva.multiplayer.util.ElMatador;
+import com.example.sobreviva.multiplayer.util.Killable;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class MenuActivity extends Activity {
+public class MenuActivity extends Activity implements Killable {
 
 	private MainActivity GerenteCenas; 
 	
@@ -28,6 +34,8 @@ public class MenuActivity extends Activity {
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	    
 		setContentView(R.layout.activity_menu);
+		
+		ElMatador.getInstance().add(this);
 		
 		GerenteCenas = MainActivity.GetInstance();
 		
@@ -59,6 +67,34 @@ public class MenuActivity extends Activity {
 		GerenteCenas.switchActivity(GerenteCenas, CreditosActivity.class);
 	}
 	
-	
+	public void onBackPressed()
+	{
+		Log.i(Const.TAG, "--------- back pressed");
+
+		new AlertDialog.Builder(this)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setTitle("Sair?")
+				.setMessage(
+						"Tem certeza que deseja sair ?")
+				.setPositiveButton("Sim",
+						new DialogInterface.OnClickListener()
+						{
+							public void onClick(DialogInterface dialog,
+									int which)
+							{
+								
+								ElMatador.getInstance().killThenAll();
+								killMeSoftly();
+
+							}
+
+						})
+				.setNegativeButton("Não", null).show();
+	}
+
+	@Override
+	public void killMeSoftly() {
+		finish();
+	}
 
 }

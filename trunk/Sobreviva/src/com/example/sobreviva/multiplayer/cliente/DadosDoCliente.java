@@ -17,6 +17,7 @@ public class DadosDoCliente implements Runnable, Killable {
 	private int pontuacao = 0;
 	private String nome;
 	private boolean ativo = true;
+	private boolean comecajogo = false;
 
 	public DadosDoCliente(Conexao cliente, int updateTime) {
 		this.cliente = cliente;
@@ -33,10 +34,16 @@ public class DadosDoCliente implements Runnable, Killable {
 			} catch (InterruptedException e) {
 				//Log.e(ConectActivity.TAG, "interrupcao do run()");
 			}
-
-			cliente.write(Protocolo.PROTOCOL_UPDATE + "," + nome + ";" + pontuacao);
+			if (comecajogo) {
+				cliente.write(Protocolo.PROTOCOL_UPDATE + "," + nome + ","
+						+ pontuacao);
+			}
 		}
 
+	}
+	
+	public void camecar(){
+		comecajogo = true;
 	}
 	
 	public String getNome(){
