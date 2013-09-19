@@ -42,6 +42,7 @@ public class Game extends View implements Runnable, Killable {
 	private Bitmap bitieBackground;
 	private Paint paint;
 	private Paint paintText;
+	private Paint paintTextPontos;
 	private boolean ativo = true;
 	private Bitmap BitmapTouchRedButton;
 	
@@ -73,8 +74,26 @@ public class Game extends View implements Runnable, Killable {
 		paint.setColor(Color.BLUE);
 
 		paintText = new Paint();
+		
 		paintText.setColor(Color.BLACK);
-		paintText.setTextSize(getWidth() / 30);
+		paintText.setTextSize(getWidth() / 25);
+		
+		paintTextPontos = new Paint();
+		paintTextPontos.setColor(Color.BLACK);
+		paintTextPontos.setTextSize(getWidth() / 25);
+		
+		Typeface comp = Typeface.createFromAsset(getContext().getAssets(),
+		        "Computerfont.ttf");
+		
+		Typeface got = Typeface.createFromAsset(getContext().getAssets(),
+		        "gotica.ttf");
+		
+		paintTextPontos.setTypeface(comp);
+		paintTextPontos.setColor(Color.GREEN);
+		
+		paintText.setTypeface(got);
+		paintText.setColor(Color.YELLOW);
+		
 		
 		
 
@@ -168,25 +187,25 @@ public class Game extends View implements Runnable, Killable {
                  System.gc(); 
              }
 			 
-			 Typeface atle = Typeface.createFromAsset(getContext().getAssets(),
-				        "Athletic.ttf");
-			paintText.setTypeface(atle);
+			
+			
+			
+			
 
-			paintText.setColor(Color.RED);
-
-			canvas.drawText("PONTOS : " + (int) pontos, 10, (getHeight() / 6),
-					paintText);
-			canvas.drawText("RECORDE :" + Recorde, 10, (getHeight() / 8),
-					paintText);
-			canvas.drawText("DINHEIRO :" + dinheiro, 170, (getHeight() / 8 ),
-					paintText);
+			canvas.drawText("" + (int) pontos, getWidth()/2 - 80, 120,paintTextPontos);
+			
+			
+			
+			canvas.drawText("" + dinheiro, 90, 750, paintText);
+			
 			postInvalidate();
 		} else {
 				Rect touchsrc = new Rect(0, 0, 450, 800);
 				Rect touchdst = new Rect(0, 0, getWidth(), getHeight());
 
-				canvas.drawBitmap(BitmapTouchRedButton, touchsrc, touchdst,
-						paint);
+				canvas.drawBitmap(BitmapTouchRedButton, touchsrc, touchdst, paint);
+				
+				canvas.drawText("" + Recorde, getWidth()/2 - 80, 750, paintTextPontos);
 			
 		}
 	}
@@ -246,8 +265,12 @@ public class Game extends View implements Runnable, Killable {
 			pontos += (0.6 * coefStep);
 		}
 
-		this.textSize = (getHeight() / 10) / 3;
-		paintText.setTextSize(textSize);
+		
+		paintText.setTextSize(50);
+		paintTextPontos.setTextSize(80);
+		
+		
+		
 
 		if (Recorde < pontos){
 			this.Recorde = (int) pontos;
@@ -256,7 +279,7 @@ public class Game extends View implements Runnable, Killable {
 		
 		if (condicaoDerrota()) 
 		{
-			this.largura = 10;
+			this.largura = 20;
 			this.pontosguardados = 100;
 			this.velocidade = 100;
 			this.coefStep = (float) 0.01;
