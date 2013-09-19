@@ -200,6 +200,7 @@ public class Game extends View implements Runnable, Killable {
 			
 			postInvalidate();
 		} else {
+			paintTextPontos.setColor(Color.GREEN);
 				Rect touchsrc = new Rect(0, 0, 450, 800);
 				Rect touchdst = new Rect(0, 0, getWidth(), getHeight());
 
@@ -273,6 +274,7 @@ public class Game extends View implements Runnable, Killable {
 		
 
 		if (Recorde < pontos){
+			paintTextPontos.setColor(Color.RED);
 			this.Recorde = (int) pontos;
 			config.setRecorde(Recorde);
 		}
