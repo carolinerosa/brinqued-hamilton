@@ -152,10 +152,10 @@ public class Game extends View implements Runnable, Killable {
 			//------------------------------ bolinha------------------------------------------------
 			
 			// Como se ele fizesse um rect em cima da img e só desenha o que o rect estiver cubrindo da img
-			 Rect srcBolinha = new Rect(0,0,255,255 );
+			 Rect srcBolinha = new Rect(0,0,225,225 );
 			 
 			// Determina x,y iniciais onde começa a img e x,y finais onde ela acaba
-			 Rect destBolinha = new Rect( getWidth()/2 - largura ,getHeight()/2 - largura,getWidth()/2+largura,getHeight()/2+largura);
+			 Rect destBolinha = new Rect( getWidth()/2  -10- largura  ,getHeight()/2 -10 - largura ,getWidth()/2+10+largura,getHeight()/2+10+largura);
 		
 			// Desenha o bitmap com os rects criados acima;
 			 canvas.drawBitmap(bitieBolinha, srcBolinha, destBolinha, paint);
