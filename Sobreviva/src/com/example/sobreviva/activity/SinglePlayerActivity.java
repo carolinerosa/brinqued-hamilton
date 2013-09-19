@@ -1,8 +1,9 @@
 package com.example.sobreviva.activity;
 
-import com.example.sobreviva.Game;
 import com.example.sobreviva.R;
 import com.example.sobreviva.R.menu;
+import com.example.sobreviva.views.Game;
+import com.example.sobreviva.views.MultiplayerGameView;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -26,11 +27,5 @@ public class SinglePlayerActivity extends Activity {
 		setContentView(new Game(this));
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.single_player, menu);
-		return true;
-	}
 
 }

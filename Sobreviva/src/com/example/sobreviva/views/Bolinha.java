@@ -1,9 +1,10 @@
-package com.example.sobreviva;
+package com.example.sobreviva.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 public class Bolinha {
 
@@ -17,14 +18,12 @@ public class Bolinha {
 	private int width;
 	private int height;
 	
-	public Bolinha(Context context, int height, int width) {
+	public Bolinha(Context context) {
 
 		radius = 50;
 		paint = new Paint();
 		paint.setColor(Color.BLUE);
 		
-		this.height = height;
-		this.width = width;
 		
 	}
 	
@@ -44,8 +43,23 @@ public class Bolinha {
 		paint.setColor(Color.RED);
 	}
 	
-	public void draw(Canvas canvas) 
+	public void draw(Canvas canvas, int height, int width) 
 	{
+		
+
+		this.height = height;
+		this.width = width;
+		
+		Log.i("bolinha", "Height: "+ height + "width:  "+width);
+		if(height > width){
+			cx = width/2;
+			cy = height - cx;
+		}else{
+			cy = height/2;
+			cx = width - cy;
+		}
+		
+		Log.i("bolinha", "cx: "+ cx + "cy:  "+cy);
 
 		canvas.drawCircle(cx, cy, radius, paint);
 		
@@ -75,7 +89,7 @@ public class Bolinha {
 	
 	public void derrota(){
 		this.radius = 50;
-			this.coefStep = (float) 0.01;
+		this.coefStep = (float) 0.01;
 	}
 	
 }

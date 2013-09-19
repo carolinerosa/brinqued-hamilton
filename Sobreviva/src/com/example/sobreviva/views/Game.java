@@ -1,7 +1,12 @@
-package com.example.sobreviva;
+package com.example.sobreviva.views;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import com.example.sobreviva.ConfigUsuario;
+import com.example.sobreviva.GerenciadorDeImagens;
+import com.example.sobreviva.multiplayer.util.ElMatador;
+import com.example.sobreviva.multiplayer.util.Killable;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,21 +21,20 @@ import android.graphics.Typeface;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.os.Bundle;
 
-public class Game extends View implements Runnable {
+public class Game extends View implements Runnable, Killable {
 
-	private int dinheiro = 0;
+	private ConfigUsuario config = ConfigUsuario.getInstance();
+	private int dinheiro = config.getMoedas();
 	private int pontosguardados = 100;
 	private int cont = 1;
 	private int largura = 10;
-	private int altura = 10;
 	private int timeSleepThread = 1;
 	private int velocidade = 100;
 	private float coefStep = (float) 0.01;
 	private float radiusStep = 1;
 	private float pontos = 0;
-	static private int Recorde = 0;
+	private int Recorde = config.getRecorde();
 	private boolean comecar = false;
 	private boolean podediminuirver = false;
 	private float textSize = 0;
@@ -38,6 +42,7 @@ public class Game extends View implements Runnable {
 	private Bitmap bitieBackground;
 	private Paint paint;
 	private Paint paintText;
+	private boolean ativo = true;
 	private Bitmap BitmapTouchRedButton;
 	
 	
@@ -45,12 +50,23 @@ public class Game extends View implements Runnable {
 	public Game(Context context) 
 	{
 		super(context);
+		
+		ElMatador.getInstance().add(this);
 
 		bitieBolinha = GerenciadorDeImagens.getInstance().getImageBolinha(this.getContext());
 		
 		bitieBackground = GerenciadorDeImagens.getInstance().getImagesBackground(this.getContext());
 		
+		InputStream Nome;
+		try {
+			Nome = getContext().getAssets().open("touch.png");
+			BitmapTouchRedButton = BitmapFactory.decodeStream(Nome);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+
 
 		//radius = 50;
 		paint = new Paint();
@@ -136,10 +152,10 @@ public class Game extends View implements Runnable {
 			//------------------------------ bolinha------------------------------------------------
 			
 			// Como se ele fizesse um rect em cima da img e só desenha o que o rect estiver cubrindo da img
-			 Rect srcBolinha = new Rect(0,0,225,225 );
+			 Rect srcBolinha = new Rect(0,0,255,255 );
 			 
 			// Determina x,y iniciais onde começa a img e x,y finais onde ela acaba
-			 Rect destBolinha = new Rect(getWidth()/2-10 - largura ,getHeight()/2-10 - largura,getWidth()/2+10+largura,getHeight()/2+10+largura);
+			 Rect destBolinha = new Rect( getWidth()/2 - largura ,getHeight()/2 - largura,getWidth()/2+largura,getHeight()/2+largura);
 		
 			// Desenha o bitmap com os rects criados acima;
 			 canvas.drawBitmap(bitieBolinha, srcBolinha, destBolinha, paint);
@@ -166,26 +182,17 @@ public class Game extends View implements Runnable {
 					paintText);
 			postInvalidate();
 		} else {
-			try
-			{
-			Rect touchsrc = new Rect (0,0,450,800);
-			Rect touchdst = new Rect (0,0,getWidth(),getHeight());
-			
-			InputStream Nome = getContext().getAssets().open("touch.png");
-			BitmapTouchRedButton = BitmapFactory.decodeStream(Nome);
-			
-			canvas.drawBitmap(BitmapTouchRedButton, touchsrc, touchdst, paint);
-			}
-			catch (IOException e) 
-			{
-				Log.e("hu3", "Erro carregando imagemtouchredbutton");
-			}
+				Rect touchsrc = new Rect(0, 0, 450, 800);
+				Rect touchdst = new Rect(0, 0, getWidth(), getHeight());
+
+				canvas.drawBitmap(BitmapTouchRedButton, touchsrc, touchdst,
+						paint);
 			
 		}
 	}
 
 	public void run() {
-		while (true) {
+		while (ativo) {
 			try 
 			{
 				Thread.sleep(timeSleepThread);
@@ -242,13 +249,14 @@ public class Game extends View implements Runnable {
 		this.textSize = (getHeight() / 10) / 3;
 		paintText.setTextSize(textSize);
 
-		if (Recorde < pontos)
+		if (Recorde < pontos){
 			this.Recorde = (int) pontos;
-
+			config.setRecorde(Recorde);
+		}
+		
 		if (condicaoDerrota()) 
 		{
 			this.largura = 10;
-			this.altura = 10;
 			this.pontosguardados = 100;
 			this.velocidade = 100;
 			this.coefStep = (float) 0.01;
@@ -260,8 +268,8 @@ public class Game extends View implements Runnable {
 		if (cont > velocidade) 
 		{
 			largura += radiusStep * 10 ;
-			altura += radiusStep * 10;
 			dinheiro++;
+			config.setMoedas(dinheiro);
 			
 			cont = 0;
 
@@ -271,9 +279,23 @@ public class Game extends View implements Runnable {
 		
 		
 
+	}
+	
+	public void onBackPressed()
+	{
+		killMeSoftly();
+	}
+
+	@Override
+	public void killMeSoftly() {
+		ativo = false;
 		
-		Log.i("valor", largura + " :) " + altura);
-		Log.i("valor", velocidade + " --> ");
+		if (Recorde < pontos){
+			this.Recorde = (int) pontos;
+			config.setRecorde(Recorde);
+		}
+		config.setMoedas(dinheiro);
+		
 	}
 
 }

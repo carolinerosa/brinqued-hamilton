@@ -15,7 +15,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/iconenovo"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -54,6 +54,18 @@
         <activity
             android:name="com.example.sobreviva.activity.LojaBolinha"
             android:label="@string/title_activity_loja_bolinha" >
+        </activity>
+         <activity
+            android:name="com.example.sobreviva.activity.InstrucoesActivity"
+            android:label="@string/title_activity_instrucoes" >
+        </activity>
+        <activity
+            android:name="com.example.sobreviva.activity.CreditosActivity"
+            android:label="@string/title_activity_creditos" >
+        </activity>
+        <activity
+            android:name="com.example.sobreviva.activity.MultiPlayerGameActivity"
+            android:label="@string/title_activity_multi_player" >
         </activity>
         <activity
             android:name="com.example.sobreviva.activity.InstrucoesActivity"
