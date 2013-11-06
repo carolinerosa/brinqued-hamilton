@@ -130,6 +130,7 @@ public class MultiPlayerActivity extends Activity {
 			// enviar dados pela rede
 
 			carregando();
+			comecar();
 
 			// MultiplayerGameView multiplayerGame = new MultiplayerGameView();
 			// setContentView(multiplayerGame);
@@ -189,6 +190,8 @@ public class MultiPlayerActivity extends Activity {
 				gerenteCenas.setDado(new DadosDoCliente(connect, 30));
 
 				carregando();
+				
+				
 
 				// garante que view possa recuperar a lista de usuarios atual e
 				// enviar dados pela rede

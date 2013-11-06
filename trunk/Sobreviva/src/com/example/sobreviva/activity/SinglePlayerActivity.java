@@ -4,6 +4,7 @@ import com.example.sobreviva.R;
 import com.example.sobreviva.R.menu;
 import com.example.sobreviva.views.Game;
 import com.example.sobreviva.views.MultiplayerGameView;
+import com.example.sobreviva.views.SinglePlayerGameView;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -24,7 +25,7 @@ public class SinglePlayerActivity extends Activity {
 	    this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-		setContentView(new Game(this));
+		setContentView(new SinglePlayerGameView(MainActivity.GetInstance()));
 	}
 
 
