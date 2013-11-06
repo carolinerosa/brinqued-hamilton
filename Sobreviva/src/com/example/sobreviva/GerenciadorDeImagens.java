@@ -18,9 +18,11 @@ public class GerenciadorDeImagens {
 
 	private Bitmap BitmapBolinha;
 	private Bitmap BitmapBackground;
+	private Bitmap ImageMoeda;
+	private Bitmap ImagePlacar;
 	private static GerenciadorDeImagens instance;
-	private String NomeDaImgBolinha = "BolaTeste.jpg";
-	private String NomeDaImgBackground = "BolaTeste.jpg";
+	private String NomeDaImgBolinha = "space.png";
+	private String NomeDaImgBackground = "spacebg.png";
 	boolean podeMudarBolinha = true;
 	boolean podeMudarBackground = true;
 	
@@ -30,7 +32,6 @@ public class GerenciadorDeImagens {
 	
 	private GerenciadorDeImagens()
 	{
-		
 		
 	} 
 	
@@ -140,6 +141,7 @@ public class GerenciadorDeImagens {
 		CarregarImagensBackground(context);
 		return BitmapBackground;
 	}
+	
 	
 	public void setImageBackground(String NomeDaImg)
 	{

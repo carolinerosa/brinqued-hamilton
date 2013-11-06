@@ -10,6 +10,7 @@ import com.example.sobreviva.activity.MainActivity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -32,11 +33,11 @@ public class Simplethread extends Thread
 			    public void handleMessage(Message msg){}
 			      
 			  };
-			     
-			  //dbMySQL dbmysql = new dbMySQL();
+			  //SQLiteDatabase dbmysql = new SQLiteDatabase();
+			  dbMySQL dbmysql = new dbMySQL();
 //			//dbmysql.conectarMySQL(this,"localhost","3306","usuarios", "root", "1322412345");
 //				
-		      //dbmysql.conectarMySQL(MainActivity.context,"db4free.net","3306","survive", "emanoel", "1322412345"); // ip do servidor mysql, porta, banco, usuário, senha
+		      dbmysql.conectarMySQL(MainActivity.GetInstance(),"db4free.net","3306","survive", "emanoel", "1322412345"); // ip do servidor mysql, porta, banco, usuário, senha
 			  
 			  mHandler.handleMessage(null); //send ourself a message so the looper can stop itself
 			  Looper.loop();
@@ -50,7 +51,9 @@ public class Simplethread extends Thread
 			
 			
 		}
-		
+
+
+private class dbMySQL{
 	   
 	    
 	    public void conectarMySQL(Context context, String host, String porta, String banco, String usuario, String senha){
@@ -119,5 +122,5 @@ public class Simplethread extends Thread
 	    		Log.e("MYSQL","Erro: " + erro);
 	    	}
 	    }
-
+}
 }

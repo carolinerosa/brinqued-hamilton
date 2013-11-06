@@ -1,20 +1,26 @@
 package com.example.sobreviva.views;
 
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.example.sobreviva.activity.MainActivity;
 import com.example.sobreviva.activity.MultiPlayerActivity;
+import com.example.sobreviva.jogo.BolinhaSimples;
 import com.example.sobreviva.multiplayer.cliente.ControleDeUsuariosCliente;
 import com.example.sobreviva.multiplayer.cliente.DadosDoCliente;
 import com.example.sobreviva.multiplayer.util.Conexao;
 import com.example.sobreviva.multiplayer.util.Killable;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -29,7 +35,7 @@ public class MultiplayerGameView extends View implements Runnable, Killable{
 
 	private Paint paintText;
 	
-	private Bolinha bola;
+	private BolinhaSimples bola;
 //	private ControleDeUsuariosCliente tratadorDeDadosDoCliente;
 //	private DadosDoCliente dadosDoCliente;
 
@@ -44,7 +50,7 @@ public class MultiplayerGameView extends View implements Runnable, Killable{
 //		threadDados.start();
 		
 		
-		bola = new Bolinha(MainActivity.GetInstance());
+		bola = new BolinhaSimples(MainActivity.GetInstance());
 		
 		paintText = new Paint();
 		paintText.setColor(Color.BLACK);
@@ -98,6 +104,9 @@ public class MultiplayerGameView extends View implements Runnable, Killable{
 	
 	private void update() {
 		bola.update();
+		if(bola.condicaoDerrota()){
+			Log.i("MultiPlayer", "PERDEU");
+		}
 	}
 	
 	
@@ -127,7 +136,25 @@ public class MultiplayerGameView extends View implements Runnable, Killable{
 		paint.setTextSize(getWidth()/2);
 		
 		if( 5 -contadorParaComecar >= 1){
-			canvas.drawText(5 -contadorParaComecar + "", (getWidth()/2), (getHeight()/2), paint);
+			
+			Bitmap cont;
+			
+			try {
+				
+				cont = BitmapFactory.decodeStream(MainActivity.GetInstance().getAssets().open(contadorParaComecar+".png"));
+				Rect touchdst = new Rect(0, 0, getWidth(), getHeight());
+
+				Rect touchdst2 = new Rect(0, 0, getWidth(), getHeight());
+
+				canvas.drawBitmap(cont, touchdst, touchdst2, paint);
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			
+			//canvas.drawText(5 -contadorParaComecar + "", (getWidth()/2), (getHeight()/2), paint);
 			//bola.draw(canvas, getHeight(), getWidth());
 		}else{
 			comecarJogo = true;

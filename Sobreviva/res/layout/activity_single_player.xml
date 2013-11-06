@@ -8,4 +8,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".SinglePlayerActivity" >
 
+    <TextView
+        android:id="@+id/ScorePos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/GoldPos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ScorePos"
+        android:layout_marginTop="30dp"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/GadgetPos"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/GoldPos"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="Button" />
+
 </RelativeLayout>
