@@ -21,11 +21,12 @@ public class BolinhaSimples implements InterfaceBolinha {
 	private int height;
 	private Random rnd;
 	
+	boolean desenhou = false;
+	
 	private int red, green, blue;
 	
 	public BolinhaSimples(Context context) {
 
-		radius = 50;
 		paint = new Paint();
 		rnd = new Random();
 		red = rnd.nextInt(255);
@@ -77,17 +78,23 @@ public class BolinhaSimples implements InterfaceBolinha {
 		this.height = height;
 		this.width = width;
 		
-		Log.i("bolinha", "Height: "+ height + "width:  "+width);
-		if(height > width){
+		if(!desenhou){
+			radius = (width/2)/2;
+			desenhou = true;
+		}
+		
+		
+		/*if(height > width){
 			cx = width/2;
 			cy = height - cx;
 		}else{
 			cy = height/2;
 			cx = width - cy;
-		}
+		}*/
 		
-		Log.i("bolinha", "cx: "+ cx + "cy:  "+cy);
-
+		cx = width/2;
+		cy = height/2;
+		
 		canvas.drawCircle(cx, cy, radius, paint);
 		
 	}
@@ -109,13 +116,13 @@ public class BolinhaSimples implements InterfaceBolinha {
 	}
 
 	public void update() {
-		
-		radius += (radiusStep * coefStep);
-		
+		if(desenhou){
+			radius += (radiusStep * coefStep);
+		}
 	}
 	
 	public void derrota(){
-		this.radius = 50;
+		desenhou = false;
 		this.coefStep = (float) 0.01;
 	}
 
