@@ -35,7 +35,7 @@ public class Simplethread extends Thread
 			  };
 			  //SQLiteDatabase dbmysql = new SQLiteDatabase();
 			  dbMySQL dbmysql = new dbMySQL();
-//			//dbmysql.conectarMySQL(this,"localhost","3306","usuarios", "root", "1322412345");
+			  //dbmysql.conectarMySQL(this,"localhost","3306","usuarios", "root", "1322412345");
 //				
 		      dbmysql.conectarMySQL(MainActivity.GetInstance(),"db4free.net","3306","survive", "emanoel", "1322412345"); // ip do servidor mysql, porta, banco, usuário, senha
 			  
